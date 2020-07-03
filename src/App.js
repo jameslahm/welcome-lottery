@@ -40,7 +40,7 @@ function App() {
 			leave: { opacity: 0},
 			enter: ({ y, height }) => ({ y, height, opacity: 1 }),
 			update: ({ y, height }) => ({ y, height }),
-			config: config.slow,
+			config: config.wobbly,
 			native:true
 		}
 	);
