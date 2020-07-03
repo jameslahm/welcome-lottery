@@ -23,7 +23,7 @@ function App() {
 			setRows(shuffle);
 			timerContainer.current = setInterval(() => {
 				setRows(shuffle);
-			}, 1000);
+			}, 2000);
 		}
 	}, [status]);
 	let height = 0;
@@ -40,7 +40,7 @@ function App() {
 			leave: { opacity: 0},
 			enter: ({ y, height }) => ({ y, height, opacity: 1 }),
 			update: ({ y, height }) => ({ y, height }),
-			config: config.wobbly,
+			config: config.default,
 			native:true
 		}
 	);

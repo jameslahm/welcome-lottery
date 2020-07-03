@@ -5,7 +5,7 @@ import gradientData from './assets/colors/gradients';
 
 export function randomCandidates() {
 	const chance = new Chance(Math.floor(Math.random()*100));
-	const totalNum = Math.floor(Math.random() * 1 + 10);
+	const totalNum = Math.floor(Math.random() * 40 + 10);
 	const candidatesData = [...Array(totalNum)].map(() => {
 		return {
 			name: chance.first() + '-' +chance.integer({min:2017000000,max:2018000000}) ,
