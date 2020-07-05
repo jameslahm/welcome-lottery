@@ -36,12 +36,12 @@ function App() {
 		}),
 		(d) => d.name,
 		{
-			from: ({y,height})=>({ height: 100, opacity: 0}),
-			leave: { opacity: 0},
+			from: ({ y, height }) => ({ height: 100, opacity: 0 }),
+			leave: { opacity: 0 },
 			enter: ({ y, height }) => ({ y, height, opacity: 1 }),
 			update: ({ y, height }) => ({ y, height }),
 			config: config.default,
-			native:true
+			native: true,
 		}
 	);
 
@@ -118,8 +118,10 @@ function App() {
 				onClick={() => {
 					setStatus('PAUSE');
 					if (timerContainer.current) {
-						const newRows = [...rows.slice(1)];
-						setCurrentRow(rows[0] ? rows[0] : null);
+						const randNum = Math.floor(Math.random() * rows.length);
+						setCurrentRow(rows[randNum] ? rows[randNum] : null);
+						rows.splice(randNum, 1);
+						const newRows = [...rows];
 						setRows(newRows);
 					}
 				}}
@@ -130,7 +132,7 @@ function App() {
 				<div
 					css={css`
 						height: ${2 * (currentRow ? currentRow.height : 100)}px;
-						position: absolute;
+						position: fixed;
 						border-radius: 5px;
 						box-shadow: 0px 10px 25px -10px rgba(0, 0, 0, 0.2);
 						display: flex;
@@ -162,7 +164,7 @@ function App() {
 					z-index: 10000;
 				`}
 				onClick={() => {
-					setRows([])
+					setRows([]);
 					setRows(randomCandidates());
 				}}
 			>
@@ -201,12 +203,9 @@ function App() {
 					ref={inputFileContainer}
 					accept=".csv"
 					onChange={async (event) => {
-						setRows(
-							await parseCsv(
-								event.target.files[0],
-								updateProgress
-							)
-						);
+						const files = event.target.files;
+						setRows(await parseCsv(files[0], updateProgress));
+						inputFileContainer.current.value=""
 						// progressbarContainer.current.style.width = 0;
 					}}
 				></input>
